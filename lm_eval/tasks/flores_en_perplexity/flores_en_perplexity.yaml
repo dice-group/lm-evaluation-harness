@@ -1,0 +1,22 @@
+task: flores_en_perplexity
+dataset_path: json
+dataset_name: null
+dataset_kwargs:
+  data_files:
+    test: /data/nikit_ws/repos/lm-evaluation-harness/lm_eval/tasks/flores_en_perplexity/demo_sample/test.json
+  field: data
+output_type: loglikelihood_rolling
+test_split: test
+process_docs: !function utils.process_docs
+process_results: !function utils.process_results
+doc_to_text: "{{input}}"
+doc_to_target: "{{output}}"
+metric_list:
+  - metric: word_perplexity
+    higher_is_better: false
+  - metric: byte_perplexity
+    higher_is_better: false
+  - metric: bits_per_byte
+    higher_is_better: false
+metadata:
+  version: 2.0
