@@ -3,6 +3,7 @@ import tarfile
 import json
 import pathlib
 import urllib.request
+import csv
 
 COMMON_LANG="eng_Latn"
 
@@ -34,6 +35,13 @@ def _load_lines(file_path):
     """Read a text file and return stripped lines."""
     with open(file_path, encoding="utf-8") as f:
         return [ln.strip() for ln in f.readlines()]
+    
+def preprocess(text):
+    text = text.strip()
+    #text = re.sub("\\[.*?\\]", "", text)
+    text = text.replace("  ", " ")
+    return text
+
 
 def _process():
     """Create one JSON file per target language."""
@@ -67,7 +75,7 @@ def _process():
 
         data = []
         for eng, tgt in zip(eng_sentences, target_sentences):
-            entry = {COMMON_LANG: eng, lang_code: tgt}
+            entry = {COMMON_LANG: preprocess(eng), lang_code: preprocess(tgt)}
             data.append(entry)
 
         json_obj = {"data": data}

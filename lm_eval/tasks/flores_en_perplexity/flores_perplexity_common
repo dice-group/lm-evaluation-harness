@@ -1,0 +1,17 @@
+# This file will be included in the generated language-specific task configs.
+# It doesn't have a yaml file extension as it is not meant to be imported directly
+# by the harness.
+task: null
+dataset_path: json
+dataset_name: null
+output_type: loglikelihood_rolling
+test_split: test
+metric_list:
+  - metric: word_perplexity
+    higher_is_better: false
+  - metric: byte_perplexity
+    higher_is_better: false
+  - metric: bits_per_byte
+    higher_is_better: false
+metadata:
+  version: 2.0
