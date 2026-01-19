@@ -1,5 +1,5 @@
+## logic based on: lm_eval/tasks/wikitext/wikitext.yaml
 import re
-import math
 import datasets
 
 # lm_eval --model hf \
@@ -24,8 +24,8 @@ def preprocess(text):
 def process_docs(dataset: datasets.Dataset) -> datasets.Dataset:
     def _process_doc(doc):
         out_doc = {
-            "input": preprocess(doc["en"]),
-            "output": preprocess(doc["de"]),
+            "input": preprocess(f"German: {doc["deu_Latn"]} \nEnglish: "),
+            "output": preprocess(doc["eng_Latn"]),
         }
         print(f'out_doc requested: {out_doc}')
         return out_doc

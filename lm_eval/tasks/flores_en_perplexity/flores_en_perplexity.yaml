@@ -3,14 +3,14 @@ dataset_path: json
 dataset_name: null
 dataset_kwargs:
   data_files:
-    test: /data/nikit_ws/repos/lm-evaluation-harness/lm_eval/tasks/flores_en_perplexity/demo_sample/test.json
+    test: lm_eval/tasks/flores_en_perplexity/flores_json/deu_Latn-eng_Latn.json
   field: data
 output_type: loglikelihood_rolling
 test_split: test
 process_docs: !function utils.process_docs
 process_results: !function utils.process_results
-doc_to_text: "{{input}}"
 doc_to_target: "{{output}}"
+doc_to_text: "{{input}}"
 metric_list:
   - metric: word_perplexity
     higher_is_better: false
