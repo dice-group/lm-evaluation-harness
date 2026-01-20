@@ -16,34 +16,34 @@ import datasets
 #     --sets test
 
     
-# def preprocess(text):
-#     text = text.strip()
-#     #text = re.sub("\\[.*?\\]", "", text)
-#     text = text.replace("  ", " ")
-#     return text
+def preprocess(text):
+    text = text.strip()
+    #text = re.sub("\\[.*?\\]", "", text)
+    text = text.replace("  ", " ")
+    return text
 
-# def process_docs(dataset: datasets.Dataset) -> datasets.Dataset:
-#     def _process_doc(doc):
-#         out_doc = {
-#             "input": preprocess(f"German: {doc["deu_Latn"]} \nEnglish: "),
-#             "output": preprocess(doc["eng_Latn"]),
-#         }
-#         print(f'out_doc requested: {out_doc}')
-#         return out_doc
+def process_docs(dataset: datasets.Dataset) -> datasets.Dataset:
+    def _process_doc(doc):
+        out_doc = {
+            "input": preprocess(f"German: {doc["deu_Latn"]} \nEnglish: "),
+            "output": preprocess(doc["eng_Latn"]),
+        }
+        print(f'out_doc requested: {out_doc}')
+        return out_doc
 
-#     return dataset.map(_process_doc)
+    return dataset.map(_process_doc)
 
-# def doc_to_target(doc) -> str:
-#     return doc["output"]
+def doc_to_target(doc) -> str:
+    return doc["output"]
 
-# def process_results(doc, results):
-#     (loglikelihood,) = results
-#     #print(f'Loglikelihood: {loglikelihood}')
-#     _words = len(re.split(r"\s+", doc_to_target(doc)))
-#     _bytes = len(doc_to_target(doc).encode("utf-8"))
-#     #print(f"perplexity: {math.exp(-loglikelihood / _words)}")
-#     return {
-#         "word_perplexity": (loglikelihood, _words),
-#         "byte_perplexity": (loglikelihood, _bytes),
-#         "bits_per_byte": (loglikelihood, _bytes),
-#     }
+def process_results(doc, results):
+    (loglikelihood,) = results
+    #print(f'Loglikelihood: {loglikelihood}')
+    _words = len(re.split(r"\s+", doc_to_target(doc)))
+    _bytes = len(doc_to_target(doc).encode("utf-8"))
+    #print(f"perplexity: {math.exp(-loglikelihood / _words)}")
+    return {
+        "word_perplexity": (loglikelihood, _words),
+        "byte_perplexity": (loglikelihood, _bytes),
+        "bits_per_byte": (loglikelihood, _bytes),
+    }

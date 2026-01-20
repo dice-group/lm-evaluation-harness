@@ -60,10 +60,11 @@ def _load_lang_names(tsv_path: str) -> dict[str, str]:
 
 def gen_save_yaml(src_lang_code, src_lang_name, tgt_lang_code, tgt_lang_name, config_dir, test_json_path):
     yaml_content_to_cl = textwrap.dedent(f"""\
+        # generated using lm_eval/tasks/flores_en_perplexity/gen_flores_config.py
         task: flores_en_perplexity_{src_lang_code}-{tgt_lang_code}
         dataset_kwargs:
             data_files:
-            test: {test_json_path.as_posix()}
+              test: {test_json_path.as_posix()}
             field: data
         doc_to_target: "{{{{{tgt_lang_code}}}}}"
         doc_to_text: "{src_lang_name}: {{{{{src_lang_code}}}}} \\n{tgt_lang_name}: "
